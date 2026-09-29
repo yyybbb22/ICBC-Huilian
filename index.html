@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>工银慧联 · 业务校验工作台</title><link rel="stylesheet" href="css/main.css"></head><body>
+<a class="skip-link" href="#input-panel">跳至业务校验</a>
+<header class="masthead"><div class="brand"><span class="brand-mark" aria-hidden="true">慧</span><div><strong>工银慧联</strong><span>银行保险代理 · 风险控制与审计</span></div></div><div class="environment"><i></i> 离线演示 <span>合成数据 · 内地规则示例</span></div></header>
+<main class="wrap">
+<section class="intro"><div><div class="eyebrow">业务校验工作台</div><h1>看清风险，让每次判定有据可查。</h1><p>从一笔示例业务开始，查看风险原因、补正事实，再保留完整判定记录。</p></div><a href="#advanced" class="text-link">配置回放与故障测试 ↗</a></section>
+<nav class="journey" aria-label="使用流程"><a href="#scene-panel"><b>01</b><span>选择场景<small>载入一笔示例业务</small></span></a><a href="#input-panel"><b>02</b><span>核对并校验<small>可直接运行，也可修改事实</small></span></a><a href="#result-panel"><b>03</b><span>查看与留存<small>定位原因，导出判定记录</small></span></a></nav>
+<section class="card scene-panel" id="scene-panel"><div class="section-top"><div><div class="eyebrow">从这里开始</div><h2>选择一个业务场景</h2></div><span class="subtle">首次使用推荐「标准业务」</span></div><div class="scenes" id="scenes"></div><p class="hint">切换场景或重置会清空当前业务记录，请先导出需要保留的判定。</p></section>
+<div class="workspace">
+<section class="card input-panel" id="input-panel"><div class="section-top"><div><div class="eyebrow">01 / 业务事实</div><h2>核对输入，开始校验</h2></div><button id="btn_reset" class="quiet">重置场景</button></div>
+<div class="scenario-summary"><span class="label">当前场景</span><strong id="scene-title"></strong><p id="scene-description"></p><div class="facts" id="fact-summary"></div></div>
+<div class="run-bar"><div><strong id="input-state">示例已就绪</strong><small>修改事实后需重新校验</small></div><button class="primary" id="btn_run">开始校验 <span aria-hidden="true">→</span></button></div>
+<div class="form-top"><span>业务明细 <small>按需展开修改</small></span><button id="toggle-fields" class="text-button">展开全部</button></div>
+<details class="field-group" id="group-0"><summary><span class="group-icon">01</span><span><strong>产品与材料</strong><small>分类、版本、准入状态</small></span><span class="chevron">⌄</span></summary><fieldset aria-label="产品与材料">
+        <label><span>产品代码</span><input type="text" id="prod_code"></label>
+        <label><span>产品分类</span><select id="prod_cat"><option>P1</option><option>P2</option><option>P3</option><option>P4</option><option>P5</option><option>未分级</option></select></label>
+        <label><span>账户风险等级</span><select id="prod_r"><option>不适用</option><option>R1</option><option>R2</option><option>R3</option><option>R4</option><option>R5</option></select></label>
+        <label><span>准入状态</span><select id="prod_status"><option>在售</option><option>停售</option><option>准入有效期届满</option></select></label>
+        <label><span>材料版本</span><input type="text" id="mat_ver"></label>
+        <label><span>已收风险上调通知</span><input id="raised" type="checkbox"></label><label><span>已同步最新等级</span><input id="synced" type="checkbox"></label><label><span>当前有效版本</span><input type="text" id="mat_cur"></label>
+      </fieldset></details><details class="field-group" id="group-1"><summary><span class="group-icon">02</span><span><strong>销售人员与渠道</strong><small>能力等级、授权、可售渠道</small></span><span class="chevron">⌄</span></summary><fieldset aria-label="销售人员与渠道"><label><span>有效业务授权</span><input id="authorized" type="checkbox"></label>
+        <label><span>能力等级</span><select id="sale_lv"><option value="1">一级（可销售全部）</option><option value="2">二级（可销售 P1–P4）</option><option value="3">三级（可销售 P1–P3）</option><option value="4">四级（可销售 P1–P2）</option></select></label>
+        <label><span>渠道</span><select id="sale_ch"><option>网点柜面</option><option>手机银行</option><option>远程坐席</option></select></label>
+        <label><span>产品可售渠道</span><select id="prod_ch"><option>网点柜面</option><option>手机银行</option><option>远程坐席</option></select></label>
+      </fieldset></details><details class="field-group" id="group-2"><summary><span class="group-icon">03</span><span><strong>投保人与交费</strong><small>年龄、风险评估、保费预算</small></span><span class="chevron">⌄</span></summary><fieldset aria-label="投保人与交费"><label><span>交费方式</span><select id="paymode"><option>期交</option><option>趸交</option></select></label>
+        <label><span>年龄</span><input type="number" id="cust_age"></label>
+        <label><span>风险承受能力</span><select id="cust_c"><option>C1</option><option>C2</option><option>C3</option><option>C4</option><option>C5</option></select></label>
+        <label><span>评估距今(月)</span><input type="number" id="cust_m"></label>
+        <label><span>民事行为能力</span><select id="cust_cap"><option>完全</option><option>限制</option><option>无</option></select></label>
+        <label><span>家庭年收入(万元)</span><input type="number" id="cust_inc"></label>
+        <label><span>趸交保费(万元)</span><input type="number" id="pol_prem"></label>
+        <label><span>年交保费(万元/年)</span><input type="number" id="pol_annual"></label>
+        <label><span>交费年限(年)</span><input type="number" id="pol_years"></label>
+        <label><span>本次总保费预算(万元)</span><input type="number" id="pol_budget"></label>
+        <label><span>今日评估次数</span><input type="number" id="cust_t"></label>
+        <label><span>12个月评估次数</span><input type="number" id="cust_y"></label>
+      </fieldset></details><details class="field-group" id="group-3"><summary><span class="group-icon">04</span><span><strong>信息传输范围</strong><small>接收方、字段、客户授权</small></span><span class="chevron">⌄</span></summary><fieldset aria-label="信息传输范围">
+        <label><span>接收方</span><select id="flow_recv"><option>承保必需·保险公司核心系统</option><option>非白名单第三方</option></select></label>
+        <label><span>拟发送字段</span><select id="flow_fields"><option>最小必要字段集</option><option>含健康告知全文（超范围）</option></select></label>
+        <label><span>客户授权状态</span><select id="flow_auth"><option>有效</option><option>已撤回</option></select></label>
+      </fieldset></details><details class="field-group" id="group-4"><summary><span class="group-icon">05</span><span><strong>需求与售前核查</strong><small>需求匹配、重复补偿、特别注意</small></span><span class="chevron">⌄</span></summary><fieldset aria-label="需求与售前核查"><label><span>需求匹配结果</span><select id="demand"><option>匹配</option><option>不匹配</option><option>待核查</option></select></label><label><span>损失补偿型产品</span><input type="checkbox" id="compensation"></label><label><span>重复／超额补偿</span><select id="duplicate"><option>否</option><option>是</option><option>待核查</option></select></label><label><span>客户情况有重大变化</span><input type="checkbox" id="changed"></label><label><span>在应评估销售环节前完成评估</span><input type="checkbox" id="seqok"></label><label><span>售前特别注意措施已完成</span><input type="checkbox" id="elderCare"></label></fieldset></details><details class="field-group" id="group-5"><summary><span class="group-icon">06</span><span><strong>声明与代理人凭证</strong><small>适用替代路径与同意证明</small></span><span class="chevron">⌄</span></summary><fieldset aria-label="声明与代理人凭证"><label><span>已建议终止投保</span><input type="checkbox" id="stopAdvice"></label><label><span>客户自主坚持投保</span><input type="checkbox" id="insists"></label><label><span>已充分说明相关风险</span><input type="checkbox" id="riskExplained"></label><label><span>已取得本人签名投保声明</span><input type="checkbox" id="written"></label><label><span>声明凭证编号</span><input type="text" id="declarationId" placeholder="演示编号"></label><label><span>存在主动推介不匹配产品</span><input type="checkbox" id="activePitch"></label><label><span>已取得法定代理人同意</span><input type="checkbox" id="guardian"></label><label><span>代理人同意凭证</span><input type="text" id="guardianId" placeholder="演示编号"></label><div class="hint">勾选仅模拟已核验事实，不是实际签署或身份验证。禁止性事实不能用声明覆盖。</div></fieldset></details>
+<p class="hint input-note">所有勾选仅模拟已核验事实，不是实际签署。禁止性事实不能用声明覆盖。</p>
+</section>
+<div class="result-column">
+<section class="card result-panel" id="result-panel" tabindex="-1"><div class="section-top"><div><div class="eyebrow">02 / 判定结果</div><h2>结论与下一步</h2></div><span class="status-dot" id="result-status">等待校验</span></div>
+<div id="stale-banner" class="stale" hidden>输入已修改。下方仍是上一次判定，请重新校验。</div>
+<div id="verdict" class="verdict"><div class="empty-icon" aria-hidden="true">✓</div><div class="big">准备好，开始第一笔校验</div><div class="desc">左侧已载入标准业务。点击「开始校验」，查看结论与需要处理的事项。</div></div>
+<div id="faultmsg" role="status"></div><div id="result-guide" aria-live="polite"></div><div id="issue-list"></div>
+</section>
+<section class="card rules-panel"><div class="section-top"><div><div class="eyebrow">判定依据</div><h2>规则检查明细 <span id="rule-count" class="count">15项</span></h2></div><div class="segmented" role="group" aria-label="筛选规则"><button id="filter-focus" aria-pressed="false">需关注</button><button id="filter-all" class="active" aria-pressed="true">全部</button></div></div><p class="hint" id="filter-note">校验后可查看每项规则的依据与结论。</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="规则检查明细，可横向滚动"><table><thead><tr><th>规则</th><th>名称</th><th>出处</th><th>判定依据</th><th>结论</th></tr></thead><tbody id="tbody"><tr><td colspan="5" class="table-empty">等待业务校验</td></tr></tbody></table></div>
+<details class="explain"><summary>如何得到最终结论？</summary><p>完整收集诊断结果，再按 BLOCK → MANUAL → COND → NOTICE → PASS 汇总。任何其他阻断未解除时，条件已满足也不能放行。规则服务超时则不执行检查。</p></details></section>
+<section class="card evidence-panel"><div class="section-top"><div><div class="eyebrow">03 / 记录留存</div><h2>导出这笔业务的判定记录</h2></div><span class="count" id="attempt-count">0次判定</span></div><p class="subtle">包含每次判定的输入、配置和故障快照。页面刷新后，内存记录会清空。</p><div class="button-row"><button id="btn_export" class="secondary">↓ 导出记录 · JSON</button><button id="btn_copy">复制记录</button></div><div id="expstat" class="feedback" role="status"></div><details class="evidence-details"><summary>查看原始记录</summary><pre id="evidence">提交后生成</pre></details></section>
+</div></div>
+<section id="advanced" class="advanced"><details id="advanced-details"><summary class="advanced-summary"><span><span class="eyebrow">进阶演示</span><strong>配置回放与故障恢复</strong><small>在完成一笔业务后，进一步验证记录关联和恢复过程</small></span><span class="advanced-open">展开工具 ⌄</span></summary><div class="advanced-grid">
+<div class="card"><div class="section-top"><div><h2>配置对比回放</h2><p class="subtle">使用上一判定的冻结输入，再运行一次。</p></div></div><label class="config-label" for="rver">选择规则配置</label><select id="rver"><option value="current">配置B：完整演示配置</option><option value="legacy">配置A：缺少授权与匹配配置（假设）</option></select><p class="hint">所选配置同时用于新的业务校验；当前配置也显示在输入摘要中。</p><button id="btn_replay" class="secondary">按此配置回放上一判定</button><div class="diff" id="replay" role="status">先完成一次校验，再选择配置进行对比。</div><p class="hint">A/B是人为设置的配置对比，不代表某个历史月份的行业状态。当前未提交的表单改动不会混入回放。</p></div>
+<div class="card"><h2>故障注入与恢复</h2><p class="subtle">点击故障即执行一次判定，观察降级结论。</p><div class="scenes fault-buttons" id="faults"></div><button id="btn_heal">解除故障并回放</button><p class="hint">恢复沿用故障判定的输入与配置，保留同一业务编号及旧记录。仅验证预设分支，不代表生产容灾能力。</p></div>
+<div class="card history-card"><h2>当前业务的判定历史</h2><p id="history-empty" class="subtle">完成校验后，这里会显示判定记录。</p><ul id="history" class="steps"></ul></div>
+<div class="card"><h2>演示链进度</h2><ul class="steps" id="steps"><li id="s1">① 输入材料与场景事实</li><li id="s2">② 执行规则并汇总判定</li><li id="s3">③ 返回结论与处置建议</li><li id="s4">④ 导出判定记录</li><li id="s5">⑤ 配置回放与差异比对</li><li id="s6">⑥ 故障注入与恢复</li></ul></div>
+</div></details></section>
+<footer>工银慧联 · V5 界面优化版<span>离线合成演示，不代表保险承保或正式合规批准。未接入真实银行系统。</span></footer>
+</main><script src="js/rules-engine.js"></script>
+<script src="js/app.js"></script><script src="js/ui.js"></script></body></html>

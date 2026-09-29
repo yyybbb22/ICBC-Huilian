@@ -1,0 +1,600 @@
+{
+  "baseline_version": "v5-demo",
+  "config_ids": {
+    "DEMO-B-1.0": "配置B（演示完整配置）",
+    "DEMO-A-1.0": "配置A（演示缺少授权与匹配配置）"
+  },
+  "verdict_legend": {
+    "PASS": "通过",
+    "BLOCK": "阻断",
+    "MANUAL": "转人工",
+    "COND": "条件已满足",
+    "NOTICE": "提示并留痕"
+  },
+  "scenarios": [
+    {
+      "scenario": "保障型P2标准业务",
+      "input": {
+        "prod": {
+          "code": "DEMO-P2-001",
+          "cat": "P2",
+          "r": "不适用",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 4,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C3",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 10,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "DEMO-B-1.0": "PASS",
+        "DEMO-A-1.0": "MANUAL"
+      },
+      "attention": []
+    },
+    {
+      "scenario": "旧版材料与销售越权",
+      "input": {
+        "prod": {
+          "code": "DEMO-P2-001",
+          "cat": "P2",
+          "r": "不适用",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.1",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 4,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C3",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 10,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": false,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "DEMO-B-1.0": "BLOCK",
+        "DEMO-A-1.0": "BLOCK"
+      },
+      "attention": [
+        "R02:BLOCK",
+        "R03:BLOCK"
+      ]
+    },
+    {
+      "scenario": "P2超额保费待声明",
+      "input": {
+        "prod": {
+          "code": "DEMO-P2-001",
+          "cat": "P2",
+          "r": "不适用",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 4,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C3",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 7,
+          "years": 10,
+          "budget": 100
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "DEMO-B-1.0": "BLOCK",
+        "DEMO-A-1.0": "BLOCK"
+      },
+      "attention": [
+        "R07:BLOCK"
+      ]
+    },
+    {
+      "scenario": "P4风险错配扩展测试",
+      "input": {
+        "prod": {
+          "code": "DEMO-P4-002",
+          "cat": "P4",
+          "r": "R4",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 2,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C2",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 10,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "DEMO-B-1.0": "BLOCK",
+        "DEMO-A-1.0": "MANUAL"
+      },
+      "attention": [
+        "R06:BLOCK"
+      ]
+    },
+    {
+      "scenario": "限制行为能力待监护同意",
+      "input": {
+        "prod": {
+          "code": "DEMO-P2-001",
+          "cat": "P2",
+          "r": "不适用",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 4,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C3",
+          "m": 6,
+          "cap": "限制",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 10,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "DEMO-B-1.0": "BLOCK",
+        "DEMO-A-1.0": "BLOCK"
+      },
+      "attention": [
+        "R09:BLOCK"
+      ]
+    },
+    {
+      "scenario": "信息超范围外传",
+      "input": {
+        "prod": {
+          "code": "DEMO-P2-001",
+          "cat": "P2",
+          "r": "不适用",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 4,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C3",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 10,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "非白名单第三方",
+          "fields": "含健康告知全文（超范围）",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "DEMO-B-1.0": "BLOCK",
+        "DEMO-A-1.0": "BLOCK"
+      },
+      "attention": [
+        "R12:BLOCK"
+      ]
+    },
+    {
+      "scenario": "老年P3待特别注意",
+      "input": {
+        "prod": {
+          "code": "DEMO-P3-003",
+          "cat": "P3",
+          "r": "不适用",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 3,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 66,
+          "c": "C3",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 5,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "DEMO-B-1.0": "MANUAL",
+        "DEMO-A-1.0": "MANUAL"
+      },
+      "attention": [
+        "R10:MANUAL"
+      ]
+    },
+    {
+      "scenario": "重复补偿待核查",
+      "input": {
+        "prod": {
+          "code": "DEMO-P2-001",
+          "cat": "P2",
+          "r": "不适用",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 4,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C3",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 10,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": true,
+        "duplicate": "待核查"
+      },
+      "expected": {
+        "DEMO-B-1.0": "MANUAL",
+        "DEMO-A-1.0": "MANUAL"
+      },
+      "attention": [
+        "R08:MANUAL"
+      ]
+    },
+    {
+      "scenario": "P4等级上调未同步",
+      "input": {
+        "prod": {
+          "code": "DEMO-P2-001",
+          "cat": "P4",
+          "r": "R3",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": true,
+          "synced": false
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 2,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C3",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 10,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "DEMO-B-1.0": "MANUAL",
+        "DEMO-A-1.0": "MANUAL"
+      },
+      "attention": [
+        "R14:MANUAL"
+      ]
+    }
+  ]
+}
