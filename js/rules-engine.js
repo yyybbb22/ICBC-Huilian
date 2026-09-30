@@ -57,7 +57,7 @@ rule('R12','传输范围与接收方','个人信息保护法第六、十三、�
 rule('R13','分级信息完整性','规范第五至七条','全部；R等级仅P4、P5',c=>c.prod.cat==='未分级'||(isRisk(c)&&!/^R[1-5]$/.test(c.prod.r))?B('MANUAL','缺少适用的分类或风险等级。'):P('适用分级信息齐备。'),'有权人员维护后重算','P类别及适用R等级');
 rule('R14','风险变更同步','规范第二十八条第三项、第四十一条','P4、P5',c=>isRisk(c)&&c.prod.raised&&!c.prod.synced?B('MANUAL','已收到风险上调通知而行内未同步，暂停自动提交。'):P('本规则未发现待同步变更。'),'核验最新等级并重新匹配，按规定通知存量客户','上调通知、同步状态');
 rule('R15','证据写入模拟','办法第十七条；规范第三十六条；失败阻断为机构策略示例','全部',(c,f)=>f.evidenceFail?B('BLOCK','模拟业务证据写入失败；仅保留本地诊断记录，不标记业务证据成功。'):P('本地演示记录可生成；不代表生产持久化或防篡改。'),'修复后产生新判定记录，保留失败记录','业务编号、判定ID、时间、快照、结果');
-const base={prod:{code:'DEMO-P2-001',cat:'P2',r:'不适用',status:'在售',ch:'网点柜面',raised:false,synced:true},mat:{ver:'V2.3',cur:'V2.3'},sale:{lv:4,ch:'网点柜面'},cust:{age:40,c:'C3',m:6,cap:'完全',inc:30,t:1,y:2},pol:{mode:'期交',prem:0,annual:2,years:10,budget:30},flow:{recv:'承保必需·保险公司核心系统',fields:'最小必要字段集',auth:'有效'},authorized:true,written:false,seqok:true,stopAdvice:false,insists:false,riskExplained:false,activePitch:false,declarationId:'',guardian:false,guardianId:'',elderCare:false,changed:false,demand:'匹配',compensation:false,duplicate:'否'};
+const base={region:'CN',mc:{license:'有效',appointment:'有效',principal:'DEMO-MO-LIFE-03',lifeCount:3,permission:'待核实',permitId:'',used:'MO-ZH-1.0',effective:'MO-ZH-2.0',source:'DEMO-MO-INSURER',effectiveDate:'2026-09-01',businessDate:'2026-09-30',confirmed:true,authorized:true,local:true},prod:{code:'DEMO-P2-001',cat:'P2',r:'不适用',status:'在售',ch:'网点柜面',raised:false,synced:true},mat:{ver:'V2.3',cur:'V2.3'},sale:{lv:4,ch:'网点柜面'},cust:{age:40,c:'C3',m:6,cap:'完全',inc:30,t:1,y:2},pol:{mode:'期交',prem:0,annual:2,years:10,budget:30},flow:{recv:'承保必需·保险公司核心系统',fields:'最小必要字段集',auth:'有效'},authorized:true,written:false,seqok:true,stopAdvice:false,insists:false,riskExplained:false,activePitch:false,declarationId:'',guardian:false,guardianId:'',elderCare:false,changed:false,demand:'匹配',compensation:false,duplicate:'否'};
 const SCENES={};
 function scene(name,edit){const c=clone(base);edit(c);SCENES[name]=c;}
 scene('保障型P2标准业务',()=>{});
@@ -69,7 +69,9 @@ scene('信息超范围外传',c=>{c.flow.recv='非白名单第三方';c.flow.fie
 scene('老年P3待特别注意',c=>{c.prod.cat='P3';c.prod.code='DEMO-P3-003';c.sale.lv=3;c.cust.age=66;c.pol.years=5;});
 scene('重复补偿待核查',c=>{c.compensation=true;c.duplicate='待核查';});
 scene('P4等级上调未同步',c=>{c.prod.cat='P4';c.prod.r='R3';c.sale.lv=2;c.prod.raised=true;c.prod.synced=false;});
+scene('澳门寿险材料与委任核查',c=>{c.region='MO';});
 const map={prod_code:'prod.code',prod_cat:'prod.cat',prod_r:'prod.r',prod_status:'prod.status',mat_ver:'mat.ver',mat_cur:'mat.cur',sale_lv:'sale.lv',sale_ch:'sale.ch',prod_ch:'prod.ch',cust_age:'cust.age',cust_c:'cust.c',cust_m:'cust.m',cust_cap:'cust.cap',cust_inc:'cust.inc',pol_prem:'pol.prem',pol_annual:'pol.annual',pol_years:'pol.years',pol_budget:'pol.budget',cust_t:'cust.t',cust_y:'cust.y',flow_recv:'flow.recv',flow_fields:'flow.fields',flow_auth:'flow.auth',paymode:'pol.mode',raised:'prod.raised',synced:'prod.synced'};
+Object.keys(base.mc).forEach(k=>map['mo_'+k]='mc.'+k);
 const extras=['authorized','written','seqok','stopAdvice','insists','riskExplained','activePitch','declarationId','guardian','guardianId','elderCare','changed','demand','compensation','duplicate'];extras.forEach(k=>map[k]=k);
 const get=(o,p)=>p.split('.').reduce((x,k)=>x[k],o);
 function set(o,p,v){const a=p.split('.'),k=a.pop();a.reduce((x,k)=>x[k],o)[k]=v;}
@@ -83,6 +85,8 @@ function invalid(c){
  return '';
 }
 function run(c,v,f={}){
+ if(c.region==='MO')return runMacau(c,v,f);
+ if(c.region && c.region!=='CN')return {rows:[{id:'INPUT',name:'地域校验',basis:'输入约束',code:'MANUAL',detail:'未知地域，暂停自动判定。'}],code:'MANUAL'};
  const err=invalid(c);if(err)return {rows:[{id:'INPUT',name:'输入完整性',basis:'演示输入约束',...B('MANUAL',err)}],code:'MANUAL'};
  if(f.ruleTimeout)return {rows:[{id:'SERVICE',name:'规则服务',basis:'演示降级策略',...B('MANUAL','服务超时，未执行规则；暂停模拟提交。')}],code:'MANUAL'};
  const rows=rules.map(r=>{let z;try{z=r.ev(c,f,v);}catch(e){z=B('MANUAL','规则执行异常，需复核。');}return {id:r.id,name:r.name,basis:r.basis,scope:r.scope,human:r.human,evidence_expected:r.evd,...z};});
@@ -91,4 +95,25 @@ function run(c,v,f={}){
 let curScene=Object.keys(SCENES)[0], faults={}, session=null,dirty=false;
 const uid=prefix=>prefix+'-'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(16).slice(2));
 function fresh(){session={biz_id:uid('YB'),scenario:curScene,created_at:new Date().toISOString(),attempts:[]};}
-function pack(){return {evidence_package_version:'demo-2.0',...clone(session),environment:'离线合成数据；浏览器内存记录，刷新后清空',integrity:'未提供数字签名、防篡改、权威身份认证或真实持久化',retention_target:'生产设计：合同关系终止后不少于5年，另有规定从其规定；本地演示不实现该保存承诺',legal_sources:['https://www.iachina.cn/art/2026/3/27/art_8616_108954.html','https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=103294'],coverage:'15个示例规则；非完整适当性合规认证'};}
+function pack(){const mo=session?.attempts.at(-1)?.input_snapshot.region==='MO';return {region:mo?'MO':'CN',evidence_package_version:'demo-3.0',...clone(session),environment:'离线合成数据；浏览器内存记录，刷新后清空',integrity:'未提供数字签名、防篡改、权威身份认证或真实持久化',retention_target:mo?'澳门保存期限须当地合规核验；本演示仅内存保存':'生产设计：合同关系终止后不少于5年，另有规定从其规定；本地演示不实现该保存承诺',legal_sources:mo?['https://cdn.amcm.gov.mo/uploads/attachment/2025-07/Aviso_013_2025Cn.pdf']:['https://www.iachina.cn/art/2026/3/27/art_8616_108954.html','https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=103294'],coverage:mo?'6项澳门核查；不执行内地R01—R15；非完整澳门合规认证':'15个内地示例规则；非完整适当性合规认证'};}
+
+const MO_SOURCE='澳门金管局第013/2025-AMCM号通告第3.2.2及4.1项';
+function configurationFor(c,v){return c.region==='MO'?{id:v==='current'?'MO-DEMO-B-1.0':'MO-DEMO-A-1.0',label:v==='current'?'澳门核查配置B':'澳门配置A（假设缺少主事人清单）',region:'MO',configured:v==='current'}:{...configs[v],region:'CN'};}
+function runMacau(c,v,f={}){
+ const m=c.mc||{},rows=[];
+ const add=(id,name,basis,z,ev)=>rows.push({id,name,basis,scope:'澳门本地持牌银行法人代理寿险合成场景',human:'核验权威资料和有效凭证；勾选只表示合成事实',evidence_expected:ev,...z});
+ if(!['current','legacy'].includes(v)||!['有效','无效','待核实'].includes(m.license)||!['有效','无效','待核实'].includes(m.appointment)||!['无','待核实','已核实'].includes(m.permission)||!Number.isInteger(m.lifeCount)||m.lifeCount<1||['principal','used','effective','source'].some(k=>typeof m[k]!=='string'||!m[k].trim())||['confirmed','authorized','local'].some(k=>typeof m[k]!=='boolean')||typeof m.permitId!=='string'||['effectiveDate','businessDate'].some(k=>!/^\d{4}-\d{2}-\d{2}$/.test(m[k]||'')||!Number.isFinite(Date.parse(m[k]))||new Date(m[k]).toISOString().slice(0,10)!==m[k]))return {rows:[{id:'INPUT',name:'澳门输入完整性',basis:'演示输入约束',code:'MANUAL',detail:'请核对必填材料来源、主事人、整数数量及有效日期；信息缺失不自动通过。'}],code:'MANUAL'};
+ if(f.ruleTimeout)return {rows:[{id:'SERVICE',name:'规则服务',basis:'演示降级策略',code:'MANUAL',detail:'服务超时，未执行澳门规则。'}],code:'MANUAL'};
+ add('M01','准照与本次委任','澳门中介准照及委任背景；有效性状态由有权人员核验',m.license==='无效'||m.appointment==='无效'?B('BLOCK','输入显示准照或本次主事人委任无效，停止模拟办理。'):m.license==='待核实'||m.appointment==='待核实'?B('MANUAL','准照或本次委任状态待核实。'):P('合成准照及本次委任状态有效；未连接登记册。'),'准照状态、本次主事人代码、委任状态');
+ let z;
+ if(v==='legacy')z=B('MANUAL','配置A假设缺少完整主事人清单，不能核定数量。');
+ else if(m.lifeCount>3)z=B('BLOCK','本演示适用的寿险主事人数超过一般上限及额外一家特别许可范围。');
+ else if(m.lifeCount===3)z=m.permission==='无'?B('BLOCK','第三家寿险主事人缺少特别许可。'):m.permission!=='已核实'||!m.permitId.trim()?B('MANUAL','第三家寿险主事人须核实银行适用的有效特别许可及凭证编号。'):P('输入表示有效特别许可已核实，额外一家条件满足；不代替监管审批。');
+ else z=P('合成寿险主事人数在一般上限两家内；仍须核查具体委任及通知义务。');
+ add('M02','寿险主事人数与许可',MO_SOURCE,z,'完整寿险主事人清单、特别许可状态及凭证');
+ add('M03','材料来源与当时版本','机构策略示例；非澳门法定版本算法',f.materialDown?B('MANUAL','版本服务不可用，待人工核验。'):m.used!==m.effective?B('BLOCK','使用材料与该业务时点的有效版本不同。'):m.effectiveDate>m.businessDate?B('BLOCK','所选版本在该业务日期尚未生效。'):!m.confirmed?B('MANUAL','银行尚未确认材料可用状态。'):P('合成来源、版本、生效日及银行确认状态齐备。'),'来源、使用版本、当时有效版本、生效日、业务日期、核验状态');
+ add('M04','经办业务授权','机构授权策略示例；不使用内地能力等级映射',m.authorized?P('合成有效授权已确认；未接入真实岗位权限。'):B('BLOCK','经办授权未核实为有效，停止模拟办理。'),'业务授权状态');
+ add('M05','澳门本地处理范围','首期范围策略；不是跨境处理合法性判定',m.local?P('本例仅作澳门本地材料核查，无实际客户数据传输。'):B('MANUAL','涉及跨境处理，超出首期范围，交有权人员另行审查。'),'地域、处理范围');
+ add('M06','判定记录生成','演示证据策略；非生产存证',f.evidenceFail?B('BLOCK','模拟证据写入失败，仅保留本地诊断记录。'):P('可生成地域、配置与输入快照，刷新前须导出；不具防篡改能力。'),'业务编号、地域、配置、冻结事实、判定');
+ return {rows,code:rows.reduce((a,r)=>ORDER.indexOf(r.code)<ORDER.indexOf(a)?r.code:a,'PASS')};
+}

@@ -1,0 +1,246 @@
+{
+  "note": "澳门场景判定基线，由 js/rules-engine.js 导出，可用作回归比对。配置键与内地不同（MO-DEMO-B-1.0 / MO-DEMO-A-1.0）。",
+  "generated_by": "js/rules-engine.js",
+  "scenarios": [
+    {
+      "scenario": "澳门寿险材料与委任核查（默认：旧版材料 + 许可待核实）",
+      "region": "MO",
+      "input": {
+        "region": "MO",
+        "mc": {
+          "license": "有效",
+          "appointment": "有效",
+          "principal": "DEMO-MO-LIFE-03",
+          "lifeCount": 3,
+          "permission": "待核实",
+          "permitId": "",
+          "used": "MO-ZH-1.0",
+          "effective": "MO-ZH-2.0",
+          "source": "DEMO-MO-INSURER",
+          "effectiveDate": "2026-09-01",
+          "businessDate": "2026-09-30",
+          "confirmed": true,
+          "authorized": true,
+          "local": true
+        },
+        "prod": {
+          "code": "DEMO-P2-001",
+          "cat": "P2",
+          "r": "不适用",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 4,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C3",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 10,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "MO-DEMO-B-1.0": "BLOCK",
+        "MO-DEMO-A-1.0": "BLOCK"
+      }
+    },
+    {
+      "scenario": "澳门：材料版本已修正（特别许可仍待核实）",
+      "region": "MO",
+      "input": {
+        "region": "MO",
+        "mc": {
+          "license": "有效",
+          "appointment": "有效",
+          "principal": "DEMO-MO-LIFE-03",
+          "lifeCount": 3,
+          "permission": "待核实",
+          "permitId": "",
+          "used": "MO-ZH-2.0",
+          "effective": "MO-ZH-2.0",
+          "source": "DEMO-MO-INSURER",
+          "effectiveDate": "2026-09-01",
+          "businessDate": "2026-09-30",
+          "confirmed": true,
+          "authorized": true,
+          "local": true
+        },
+        "prod": {
+          "code": "DEMO-P2-001",
+          "cat": "P2",
+          "r": "不适用",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 4,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C3",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 10,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "MO-DEMO-B-1.0": "MANUAL",
+        "MO-DEMO-A-1.0": "MANUAL"
+      }
+    },
+    {
+      "scenario": "澳门：材料与特别许可均齐备",
+      "region": "MO",
+      "input": {
+        "region": "MO",
+        "mc": {
+          "license": "有效",
+          "appointment": "有效",
+          "principal": "DEMO-MO-LIFE-03",
+          "lifeCount": 3,
+          "permission": "已核实",
+          "permitId": "DEMO-PERMIT-001",
+          "used": "MO-ZH-2.0",
+          "effective": "MO-ZH-2.0",
+          "source": "DEMO-MO-INSURER",
+          "effectiveDate": "2026-09-01",
+          "businessDate": "2026-09-30",
+          "confirmed": true,
+          "authorized": true,
+          "local": true
+        },
+        "prod": {
+          "code": "DEMO-P2-001",
+          "cat": "P2",
+          "r": "不适用",
+          "status": "在售",
+          "ch": "网点柜面",
+          "raised": false,
+          "synced": true
+        },
+        "mat": {
+          "ver": "V2.3",
+          "cur": "V2.3"
+        },
+        "sale": {
+          "lv": 4,
+          "ch": "网点柜面"
+        },
+        "cust": {
+          "age": 40,
+          "c": "C3",
+          "m": 6,
+          "cap": "完全",
+          "inc": 30,
+          "t": 1,
+          "y": 2
+        },
+        "pol": {
+          "mode": "期交",
+          "prem": 0,
+          "annual": 2,
+          "years": 10,
+          "budget": 30
+        },
+        "flow": {
+          "recv": "承保必需·保险公司核心系统",
+          "fields": "最小必要字段集",
+          "auth": "有效"
+        },
+        "authorized": true,
+        "written": false,
+        "seqok": true,
+        "stopAdvice": false,
+        "insists": false,
+        "riskExplained": false,
+        "activePitch": false,
+        "declarationId": "",
+        "guardian": false,
+        "guardianId": "",
+        "elderCare": false,
+        "changed": false,
+        "demand": "匹配",
+        "compensation": false,
+        "duplicate": "否"
+      },
+      "expected": {
+        "MO-DEMO-B-1.0": "PASS",
+        "MO-DEMO-A-1.0": "MANUAL"
+      }
+    }
+  ]
+}

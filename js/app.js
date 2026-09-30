@@ -1,8 +1,8 @@
 'use strict';
 const $=id=>document.getElementById(id);
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function fill(c){Object.entries(map).forEach(([id,p])=>{const e=$(id);if(e.type==='checkbox')e.checked=!!get(c,p);else e.value=get(c,p);});}
-function read(){const c=clone(base);Object.entries(map).forEach(([id,p])=>{const e=$(id);set(c,p,e.type==='checkbox'?e.checked:(e.type==='number'||id==='sale_lv'?(e.value.trim()===''?null:Number(e.value)):e.value.trim()));});return c;}
+function fill(c){Object.entries(map).forEach(([id,p])=>{const e=$(id);if(e.type==='checkbox')e.checked=!!get(p.startsWith('mc.')?(c.mc?c:base):(c.prod?c:base),p);else e.value=get(p.startsWith('mc.')?(c.mc?c:base):(c.prod?c:base),p);});}
+function read(){const c=clone(base);Object.entries(map).forEach(([id,p])=>{const e=$(id);set(c,p,e.type==='checkbox'?e.checked:(e.type==='number'||id==='sale_lv'?(e.value.trim()===''?null:Number(e.value)):e.value.trim()));});c.region=SCENES[curScene].region||'CN';return c.region==='MO'?{region:'MO',mc:c.mc}:c;}
 function show(){
  const a=session.attempts.at(-1),r=a.result;
  $('verdict').innerHTML='<div class="big"><span class="code '+r.code+'">'+r.code+'</span> '+CODE_TXT[r.code]+'</div><div class="desc">'+(['BLOCK','MANUAL'].includes(r.code)?'暂停模拟提交；补正后重新判定。':'满足本演示控制条件，可进入模拟提交；不代表保险承保或正式合规批准。')+'</div><div class="kv"><div>业务编号</div><div>'+esc(session.biz_id)+'</div><div>判定序号</div><div>'+session.attempts.length+'</div><div>配置版本</div><div>'+esc(a.config_id)+'</div><div>证据状态</div><div>'+(a.persistence==='failed'?'业务写入模拟失败，仅有本地诊断记录':'本地生成，未写入生产证据库')+'</div></div>';
@@ -19,7 +19,7 @@ function show(){
 }
 function attempt(kind='submit',ctx=read(),version=$('rver').value,ff=faults,ref=null){
  if(!session)fresh();const result=run(ctx,version,ff);
- session.attempts.push({sequence:session.attempts.length+1,attempt_id:uid('DEC'),at:new Date().toISOString(),kind,replay_of:ref,config_id:configs[version].id,config_key:version,configuration:clone(configs[version]),input_snapshot:clone(ctx),faults:clone(ff),persistence:ff.evidenceFail?'failed':'local_only',result});show();
+ session.attempts.push({sequence:session.attempts.length+1,attempt_id:uid('DEC'),at:new Date().toISOString(),kind,replay_of:ref,region:ctx.region||'CN',config_id:configurationFor(ctx,version).id,config_key:version,configuration:configurationFor(ctx,version),input_snapshot:clone(ctx),faults:clone(ff),persistence:ff.evidenceFail?'failed':'local_only',result});show();
 }
 function clear(){session=null;faults={};dirty=false;['verdict','faultmsg','replay','expstat','history'].forEach(id=>$(id).textContent='');$('verdict').textContent='等待提交';$('tbody').innerHTML='<tr><td colspan="5">尚未执行</td></tr>';$('evidence').textContent='提交后生成';['s1','s2','s3','s4','s5','s6'].forEach(id=>$(id).className='');Array.from($('faults').children).forEach(x=>x.className='');}
 Object.keys(SCENES).forEach(k=>{const b=document.createElement('button');b.textContent=k;b.onclick=()=>{curScene=k;clear();fill(SCENES[k]);Array.from($('scenes').children).forEach(x=>x.className='');b.className='on';};$('scenes').appendChild(b);});

@@ -8,7 +8,8 @@
       "legal_basis": "机构策略示例；代销准入要求待行内会签",
       "scope": "全部",
       "human_oversight": "业务岗补正，不得越过准入限制",
-      "evidence_expected": "产品代码、准入状态"
+      "evidence_expected": "产品代码、准入状态",
+      "region": "CN"
     },
     {
       "id": "R02",
@@ -16,7 +17,8 @@
       "legal_basis": "办法第十七条；规范第三十六条；版本一致性为机构策略示例",
       "scope": "全部",
       "human_oversight": "产品运营岗核验版本后重新提交",
-      "evidence_expected": "材料版本、有效版本"
+      "evidence_expected": "材料版本、有效版本",
+      "region": "CN"
     },
     {
       "id": "R03",
@@ -24,7 +26,8 @@
       "legal_basis": "办法第十六、三十三条；规范第九、十条",
       "scope": "全部",
       "human_oversight": "授权须有制度依据；临时授权不得豁免法定能力要求",
-      "evidence_expected": "人员能力、授权状态、渠道"
+      "evidence_expected": "人员能力、授权状态、渠道",
+      "region": "CN"
     },
     {
       "id": "R04",
@@ -32,7 +35,8 @@
       "legal_basis": "机构渠道策略示例；办法第三十三条",
       "scope": "全部",
       "human_oversight": "有权岗位维护渠道，重新校验",
-      "evidence_expected": "当前及允许渠道"
+      "evidence_expected": "当前及允许渠道",
+      "region": "CN"
     },
     {
       "id": "R05",
@@ -40,7 +44,8 @@
       "legal_basis": "规范第十九至二十三条",
       "scope": "P4、P5",
       "human_oversight": "不得绕过必需评估",
-      "evidence_expected": "评估距今月份、变化标记"
+      "evidence_expected": "评估距今月份、变化标记",
+      "region": "CN"
     },
     {
       "id": "R06",
@@ -48,7 +53,8 @@
       "legal_basis": "办法第十三、三十八条；规范第二十一、二十四、二十五、二十九条",
       "scope": "P4、P5",
       "human_oversight": "核验真实自主选择及声明，禁止代签",
-      "evidence_expected": "R/C等级、终止建议、坚持投保、说明与签名凭证"
+      "evidence_expected": "R/C等级、终止建议、坚持投保、说明与签名凭证",
+      "region": "CN"
     },
     {
       "id": "R07",
@@ -56,7 +62,8 @@
       "legal_basis": "规范第二十四至二十六条；办法第三十八、三十九条",
       "scope": "P2至P5",
       "human_oversight": "预算口径采用总保费对总预算的演示约定，需业务合规会签",
-      "evidence_expected": "交费方式、金额、收入、年限、总预算、声明"
+      "evidence_expected": "交费方式、金额、收入、年限、总预算、声明",
+      "region": "CN"
     },
     {
       "id": "R08",
@@ -64,7 +71,8 @@
       "legal_basis": "规范第十七、十八、二十四、二十五条",
       "scope": "需求评估适用产品及损失补偿型",
       "human_oversight": "既有保单不自动等于重复补偿，应核查保障责任后确认",
-      "evidence_expected": "需求结果、补偿属性、重复核查结果"
+      "evidence_expected": "需求结果、补偿属性、重复核查结果",
+      "region": "CN"
     },
     {
       "id": "R09",
@@ -72,7 +80,8 @@
       "legal_basis": "办法第十九条；规范第三十二条",
       "scope": "全部",
       "human_oversight": "核验法定代理关系及同意，不以本人声明代替",
-      "evidence_expected": "行为能力、代理人同意、凭证编号"
+      "evidence_expected": "行为能力、代理人同意、凭证编号",
+      "region": "CN"
     },
     {
       "id": "R10",
@@ -80,7 +89,8 @@
       "legal_basis": "办法第十八条；规范第三十一条",
       "scope": "65周岁及以上且P3至P5",
       "human_oversight": "措施及留痕核实后重算",
-      "evidence_expected": "适老告知完成标记"
+      "evidence_expected": "适老告知完成标记",
+      "region": "CN"
     },
     {
       "id": "R11",
@@ -88,7 +98,8 @@
       "legal_basis": "办法第十三条；规范第二十二、二十九条",
       "scope": "适用评估的销售；频次仅P4、P5",
       "human_oversight": "纠正流程并核查，不得靠反复测评规避",
-      "evidence_expected": "评估顺序、日及年次数"
+      "evidence_expected": "评估顺序、日及年次数",
+      "region": "CN"
     },
     {
       "id": "R12",
@@ -96,7 +107,8 @@
       "legal_basis": "个人信息保护法第六、十三、十五、十九、二十三、二十八、二十九条；机构白名单策略",
       "scope": "本演示以同意为处理依据",
       "human_oversight": "其他合法处理依据须另行核实，不能靠白名单豁免",
-      "evidence_expected": "处理依据、授权状态、接收方及字段选项"
+      "evidence_expected": "处理依据、授权状态、接收方及字段选项",
+      "region": "CN"
     },
     {
       "id": "R13",
@@ -104,7 +116,8 @@
       "legal_basis": "规范第五至七条",
       "scope": "全部；R等级仅P4、P5",
       "human_oversight": "有权人员维护后重算",
-      "evidence_expected": "P类别及适用R等级"
+      "evidence_expected": "P类别及适用R等级",
+      "region": "CN"
     },
     {
       "id": "R14",
@@ -112,7 +125,8 @@
       "legal_basis": "规范第二十八条第三项、第四十一条",
       "scope": "P4、P5",
       "human_oversight": "核验最新等级并重新匹配，按规定通知存量客户",
-      "evidence_expected": "上调通知、同步状态"
+      "evidence_expected": "上调通知、同步状态",
+      "region": "CN"
     },
     {
       "id": "R15",
@@ -120,7 +134,66 @@
       "legal_basis": "办法第十七条；规范第三十六条；失败阻断为机构策略示例",
       "scope": "全部",
       "human_oversight": "修复后产生新判定记录，保留失败记录",
-      "evidence_expected": "业务编号、判定ID、时间、快照、结果"
+      "evidence_expected": "业务编号、判定ID、时间、快照、结果",
+      "region": "CN"
+    },
+    {
+      "id": "M01",
+      "name": "准照与本次委任",
+      "legal_basis": "澳门中介准照及委任背景；有效性状态由有权人员核验",
+      "scope": "澳门本地持牌银行法人代理寿险合成场景",
+      "human_oversight": "核验权威资料和有效凭证；勾选只表示合成事实",
+      "evidence_expected": "准照状态、本次主事人代码、委任状态",
+      "region": "MO"
+    },
+    {
+      "id": "M02",
+      "name": "寿险主事人数与许可",
+      "legal_basis": "澳门金管局第013/2025-AMCM号通告第3.2.2及4.1项",
+      "scope": "澳门本地持牌银行法人代理寿险合成场景",
+      "human_oversight": "核验权威资料和有效凭证；勾选只表示合成事实",
+      "evidence_expected": "完整寿险主事人清单、特别许可状态及凭证",
+      "region": "MO"
+    },
+    {
+      "id": "M03",
+      "name": "材料来源与当时版本",
+      "legal_basis": "机构策略示例；非澳门法定版本算法",
+      "scope": "澳门本地持牌银行法人代理寿险合成场景",
+      "human_oversight": "核验权威资料和有效凭证；勾选只表示合成事实",
+      "evidence_expected": "来源、使用版本、当时有效版本、生效日、业务日期、核验状态",
+      "region": "MO"
+    },
+    {
+      "id": "M04",
+      "name": "经办业务授权",
+      "legal_basis": "机构授权策略示例；不使用内地能力等级映射",
+      "scope": "澳门本地持牌银行法人代理寿险合成场景",
+      "human_oversight": "核验权威资料和有效凭证；勾选只表示合成事实",
+      "evidence_expected": "业务授权状态",
+      "region": "MO"
+    },
+    {
+      "id": "M05",
+      "name": "澳门本地处理范围",
+      "legal_basis": "首期范围策略；不是跨境处理合法性判定",
+      "scope": "澳门本地持牌银行法人代理寿险合成场景",
+      "human_oversight": "核验权威资料和有效凭证；勾选只表示合成事实",
+      "evidence_expected": "地域、处理范围",
+      "region": "MO"
+    },
+    {
+      "id": "M06",
+      "name": "判定记录生成",
+      "legal_basis": "演示证据策略；非生产存证",
+      "scope": "澳门本地持牌银行法人代理寿险合成场景",
+      "human_oversight": "核验权威资料和有效凭证；勾选只表示合成事实",
+      "evidence_expected": "业务编号、地域、配置、冻结事实、判定",
+      "region": "MO"
     }
-  ]
+  ],
+  "meta": {
+    "macau_source": "澳门金管局第013/2025-AMCM号通告第3.2.2及4.1项",
+    "macau_source_url": "https://cdn.amcm.gov.mo/uploads/attachment/2025-07/Aviso_013_2025Cn.pdf"
+  }
 }
